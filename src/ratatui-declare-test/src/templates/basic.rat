@@ -1,0 +1,7 @@
+BoxLayout:
+    BoxLayout:
+        Label:
+            text: "Hello, "
+    BoxLayout:
+        Label:
+            text: "World!"
