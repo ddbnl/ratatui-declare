@@ -1,7 +1,7 @@
-BoxLayout:
-    BoxLayout:
-        Label:
+Layout:
+    Layout:
+        Paragraph:
             text: "Hello, "
-    BoxLayout:
-        Label:
+    Layout:
+        Paragraph:
             text: "World!"
