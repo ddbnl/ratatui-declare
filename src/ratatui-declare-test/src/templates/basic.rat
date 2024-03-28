@@ -1,7 +1,11 @@
 Layout:
+    direction: horizontal
     Layout:
         Paragraph:
             text: "Hello, "
     Layout:
         Paragraph:
             text: "World!"
+    Layout:
+        Paragraph:
+            text: "World!" 

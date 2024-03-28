@@ -1,3 +1,3 @@
 pub mod parse;
-mod widgets;
-mod run;
+pub mod widgets;
+pub mod run;
