@@ -1,11 +1,14 @@
 Layout:
     direction: horizontal
     Layout:
+        direction: vertical
         Paragraph:
-            text: "Hello, "
+            text: "{{hello}}"
+        Paragraph:
+            text: "{{world}}"
     Layout:
+        direction: vertical
         Paragraph:
-            text: "World!"
-    Layout:
+            text: "{{hello}}"
         Paragraph:
-            text: "World!" 
+            text: "{{world}}"

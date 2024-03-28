@@ -1,6 +1,6 @@
 use std::io::Read;
 use thiserror::Error;
-use crate::widgets::WrapperWidgets;
+use crate::widget_wrappers::wrapper_widgets::WrapperWidgets;
 
 
 pub fn parse_template_files(path: &str) -> WrapperWidgets {
@@ -23,18 +23,18 @@ fn parse_text(text: &str) -> Result<(WrapperWidgets), TemplateParserError> {
 
     let mut line_no = 0;
     let mut lines: Vec<&str> = text.lines().collect();
-
+    
     while !lines.is_empty() {
         let line = lines.remove(0);
         if line.trim().is_empty() || line.trim().starts_with("//") {
+            line_no += 1;
             continue
         }
         if line != "Layout:" {
             return Err(TemplateParserError::RootWidget(line_no, line.to_string()))
         }
         let mut root = WrapperWidgets::from(line.strip_suffix(':').unwrap());
-        root.to_box().load_config(&mut lines, line_no, 4)?;
-        line_no += 1;
+        root.to_box().load_config(&mut lines, &mut line_no, 4)?;
         return Ok(root)
     }
     Err(TemplateParserError::NoRoots)
@@ -50,8 +50,8 @@ pub enum TemplateParserError {
     #[error("Root template must contain exactly one root widget.")]
     NoRoots,
     
-    #[error("Root template must contain exactly one root widget.")]
-    TooManyRoots(String),
+    #[error("Line {0}: Root template must contain exactly one root level declaration, but found a second: {1}")]
+    TooManyRoots(usize, String),
     
     #[error("Line {0}: Expected indention level '{1}', but found this instead: {2}")]
     InvalidIndentation(usize, usize, String),

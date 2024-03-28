@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use std::fmt::Error;
 use crossterm::{
     event::{self, KeyCode, KeyEventKind},
@@ -12,9 +13,11 @@ use ratatui::{
     widgets::Paragraph,
 };
 use std::io::stdout;
-use crate::widgets::WrapperWidgets;
+use crate::widget_wrappers::wrapper_widgets::WrapperWidgets;
 
-pub fn render(mut root: WrapperWidgets) -> anyhow::Result<()> {
+pub fn render(mut root: WrapperWidgets,
+              replacements: &HashMap<&str, &str>)
+    -> anyhow::Result<()> {
 
     stdout().execute(EnterAlternateScreen)?;
     enable_raw_mode()?;
@@ -23,7 +26,7 @@ pub fn render(mut root: WrapperWidgets) -> anyhow::Result<()> {
     
     loop {
         terminal.draw(|frame| {
-            root.to_box().render(None, frame).unwrap();
+            root.to_box().render(None, replacements, frame).unwrap();
         })?;
             
         if event::poll(std::time::Duration::from_millis(16))? {
