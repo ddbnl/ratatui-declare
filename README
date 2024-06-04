@@ -1,0 +1,23 @@
+# ratatui-declare
+
+Allows building Ratatui TUI's using declarative templates.
+
+For example, four labels, one in each corner of the screen:
+```YAML
+Layout:
+    direction: horizontal
+    Layout:
+        direction: vertical
+        Paragraph:
+            text: "{{hello}}"
+        Paragraph:
+            text: "{{world}}"
+    Layout:
+        direction: vertical
+        Paragraph:
+            text: "{{hello}}"
+        Paragraph:
+            text: "{{world}}"
+```
+
+Currently in development.
